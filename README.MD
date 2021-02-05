@@ -14,8 +14,10 @@
 
 1. Create Registered Application in Azure Active Directory portal located at [portal.azure.com](http://portal.azure.com/), and navigate to **Azure Active Directory**, and select **App registrations**.
 
-2. Once there select **`+` New Registration** and enter the name of your Nifi-AAD Application and also the Redirect URL to Be used by AAD to return to NiFi with the Users Authentication token. This will be your NiFi's domain followed by `/nifi-api/access/oidc/callback`, so for example a test Nifi on localhost with TLS enabled will be `https://localhost:9443/nifi-api/access/oidc/callback`
+2. Once there select **`+` New Registration** and enter the name of your NiFi-AAD Application and also the Redirect URL to Be used by AAD to return to NiFi with the Users Authentication token. This will be your NiFi's domain followed by `/nifi-api/access/oidc/callback`, so for example a test Nifi on localhost with TLS enabled will be `https://localhost:9443/nifi-api/access/oidc/callback`
   ![alt](images/aad_new_app_reg.png)
+    
+    If your NiFi cluster is behind a load balancer, have its public DNS name in the host name part of the URL.
 
 3. Once the Registered Application is created, note the **Application (client) ID** value referenced in the **Overview** property for the Application. This will be the `APP_REG_CLIENT_ID` in the `conf/authorizers.xml` and the `nifi.security.user.oidc.client.id` in `conf/nifi.properties`
 4. Now to create a Client sectet, navigate within its properties to **Certificates & secrets** and create a new **Client secrets** this will be used for the `APP_REG_CLIENT_SECRET` in the `conf/authorizers.xml` and the `nifi.security.user.oidc.client.secret` in `conf/nifi.properties`.
@@ -67,7 +69,7 @@ Example `authorizers.xml`:
     <userGroupProvider>
         <identifier>aad-user-group-provider</identifier>
         <class>org.apache.nifi.authorization.azure.AzureGraphUserGroupProvider</class>
-        <property name="REFRESH_DELAY">1 mins</property>
+        <property name="REFRESH_DELAY">5 mins</property>
         <property name="AUTHORITY_ENDPOINT">https://login.microsoftonline.com</property>
         <property name="TENANT_ID">YOUR_TENANT_ID</property>
         <property name="APP_REG_CLIENT_ID">YOUR_APPLICATION_CLIENT_ID</property>
