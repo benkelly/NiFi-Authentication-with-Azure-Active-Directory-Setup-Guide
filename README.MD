@@ -53,6 +53,13 @@ nifi.security.user.oidc.additional.scopes=profile
 nifi.security.user.oidc.claim.identifying.user=upn
 ```
 
+If your AAD includes both users from on-premise and cloud only account, and youur NiFi distribution version is above 1.13.0 (that is, including this PR: https://github.com/apache/nifi/pull/4630), you could use email claim by default and upn as a fallback claim for identifying users. For example,
+
+```properties
+nifi.security.user.oidc.claim.identifying.user=email
+nifi.security.user.oidc.fallback.claims.identifying.user=upn
+```
+
 3. Next, configure `conf/authorizers.xml` to enable a `file-user-group-provider` provider for initial SystemAdminastration and the `aad-user-group-provider` for Group Sync. 
 
 Example `authorizers.xml`:
@@ -102,6 +109,8 @@ Example `authorizers.xml`:
     </authorizer>
 </authorizers>
 ```
+
+As mentioned before, if you configure to use `email` claim by default and `upn` as a fallback for identifying users, set the `CLAIM_FOR_USERNAME` property of AzureGraphUserGroupProvider to `email`. By default, it will take `upn` claim, since this claim may cover both on-premise & cloud only user accounts.
 
 > __NOTE__ To obtain the `SYS_ADMIN_AAD_UPN` value can be done by going to  [portal.azure.com](http://portal.azure.com/), navigate to **Azure Active Directory**, and select **User**, Search for the user wished to be used for the Initial System Administration and fetching their `User Principal Name` value from the properties. ![alt](images/aad_geting_user_upn.png)
 
