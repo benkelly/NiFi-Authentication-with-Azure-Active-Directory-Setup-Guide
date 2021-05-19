@@ -70,7 +70,6 @@ Example `authorizers.xml`:
         <class>org.apache.nifi.authorization.FileUserGroupProvider</class>
         <property name="Users File">./conf/users.xml</property>
         <property name="Legacy Authorized Users File"></property>
-        <property name="Initial User Identity 1">SYS_ADMIN_AAD_UPN</property>
     </userGroupProvider>
 
     <userGroupProvider>
