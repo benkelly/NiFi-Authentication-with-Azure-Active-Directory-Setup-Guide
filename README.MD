@@ -75,13 +75,13 @@ Example `authorizers.xml`:
     <userGroupProvider>
         <identifier>aad-user-group-provider</identifier>
         <class>org.apache.nifi.authorization.azure.AzureGraphUserGroupProvider</class>
-        <property name="REFRESH_DELAY">5 mins</property>
-        <property name="AUTHORITY_ENDPOINT">https://login.microsoftonline.com</property>
-        <property name="TENANT_ID">YOUR_TENANT_ID</property>
-        <property name="APP_REG_CLIENT_ID">YOUR_APPLICATION_CLIENT_ID</property>
-        <property name="APP_REG_CLIENT_SECRET">YOUR_APPLICATION_CLIENT_SECRET</property>
-        <property name="GROUP_FILTER_PREFIX">Nifi-AAD</property>
-        <property name="PAGE_SIZE">100</property>
+        <property name="Refresh Delay">5 mins</property>
+        <property name="Authority Endpoint">https://login.microsoftonline.com</property>
+        <property name="Directory ID">YOUR_TENANT_ID</property>
+        <property name="Application ID">YOUR_APPLICATION_CLIENT_ID</property>
+        <property name="Client Secret">YOUR_APPLICATION_CLIENT_SECRET</property>
+        <property name="Group Filter Prefix">Nifi-AAD</property>
+        <property name="Page Size">100</property>
     </userGroupProvider>
 
     <userGroupProvider>
